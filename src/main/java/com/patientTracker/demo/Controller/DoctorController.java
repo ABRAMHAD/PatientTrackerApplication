@@ -104,5 +104,6 @@ public class DoctorController {
 		TreatmentHistory trt = doctorService.findByTreatmentHistory_tId(pId);
 		return new ResponseEntity<TreatmentHistory>(trt,HttpStatus.OK);
 	}
+	//doctor
 	
 }
