@@ -3,7 +3,9 @@
  */
 package com.patientTracker.demo.Entities;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,7 +35,7 @@ public class Patient {
 
 	@Id
 	@Column(name = "P_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pId;
 
 	@Column(name = "P_NAME", length = 20, nullable = false)
@@ -50,9 +53,9 @@ public class Patient {
 	@Column(name = "P_ADDRESS")
 	private String address;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="Patient")
-	@JoinColumn(name = "tId")
-	private List<TreatmentHistory> treatmentHistory;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name = "Patient_Treatment",joinColumns = {@JoinColumn(name="P_ID")},inverseJoinColumns = {@JoinColumn(name="TREATMENT_ID")})
+	private Set<TreatmentHistory> treatmentHistory= new HashSet<>();
 	
 
 //	@OneToMany(cascade=ALL, mappedBy="Patient")
@@ -124,13 +127,16 @@ public class Patient {
 		this.address = address;
 	}
 
-	public List<TreatmentHistory> getTreatmentHistory() {
+	
+	public Set<TreatmentHistory> getTreatmentHistory() {
 		return treatmentHistory;
 	}
 
-	public void setTreatmentHistory(List<TreatmentHistory> treatmentHistory) {
+
+	public void setTreatmentHistory(Set<TreatmentHistory> treatmentHistory) {
 		this.treatmentHistory = treatmentHistory;
 	}
+
 
 	@Override
 	public String toString() {

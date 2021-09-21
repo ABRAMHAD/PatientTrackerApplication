@@ -71,7 +71,7 @@ public class AdminServicesImpl implements AdminService {
 			LOG.info(admin2.toString());
 			return "Login Succesful";
 		} else {
-			throw new BadRequestException("Invalid user name.");
+			throw new BadRequestException("Invalid user name or password.");
 		}
 
 	}

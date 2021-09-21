@@ -21,6 +21,8 @@ import com.patientTracker.demo.Entities.TreatmentHistory;
 public interface TreatmentHistoryRepository extends JpaRepository<TreatmentHistory, Integer >{
 	
 	
+	
+	
 	//public abstract int findById(Patient pId);
 	// public boolean TreatmentHistory findByPId(int pId);
 	 

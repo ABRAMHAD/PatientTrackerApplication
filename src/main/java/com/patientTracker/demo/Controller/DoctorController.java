@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patientTracker.demo.Entities.Doctor;
 import com.patientTracker.demo.Entities.Patient;
 import com.patientTracker.demo.Entities.TreatmentHistory;
+import com.patientTracker.demo.Repository.TreatmentHistoryRepository;
 import com.patientTracker.demo.Services.AdminService;
 import com.patientTracker.demo.Services.DoctorService;
 
@@ -41,6 +42,9 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private TreatmentHistoryRepository treatment;
 
 	//Login doctor
 	@PostMapping("/Login_Doctor")
@@ -78,12 +82,12 @@ public class DoctorController {
 		return this.adminService.updatePatient(patient);
 	}
 
-	//Add Treatment History
-	@PostMapping("/addTreatmentHistory")
-	public TreatmentHistory addTreatmentHistory(@RequestBody TreatmentHistory treatmentHistory) {
-		return this.doctorService.addTreatmentHistory(treatmentHistory);
-
-	}
+//	//Add Treatment History
+//	@PostMapping("/addTreatmentHistory")
+//	public TreatmentHistory addTreatmentHistory(@RequestBody TreatmentHistory treatmentHistory) {
+//		return this.doctorService.addTreatmentHistory(treatmentHistory);
+//
+//	}
 
 	//Get TreatmentHistory 
 	@GetMapping("/viewTreatmentHistory")
@@ -99,11 +103,10 @@ public class DoctorController {
 	}
 	
 	//Get Patient History
-	@GetMapping("/getHistory/{pId}")
-	public ResponseEntity<TreatmentHistory> getTreatmentHistoryById(@PathVariable int pId){
-		TreatmentHistory trt = doctorService.findByTreatmentHistory_tId(pId);
+	@GetMapping(path="/search_History/{pId}")
+	public ResponseEntity<TreatmentHistory> getTreatmentHistoryById(@PathVariable int pId) {
+		LOG.info("getTreatmentHistoryById");
+		TreatmentHistory trt = doctorService.getPatientById(pId);
 		return new ResponseEntity<TreatmentHistory>(trt,HttpStatus.OK);
-	}
-	//doctor
-	
+	}	
 }

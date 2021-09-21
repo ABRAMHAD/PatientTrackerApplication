@@ -15,15 +15,17 @@ import com.patientTracker.demo.Entities.TreatmentHistory;
  */
 public interface DoctorService {
 
-	public TreatmentHistory addTreatmentHistory(TreatmentHistory treatmentHistory);
+	//public TreatmentHistory addTreatmentHistory(TreatmentHistory treatmentHistory);
 
 	public List<TreatmentHistory> getTreatmentHistory();
 
 	public String loginDoctor(Doctor doctor);
+
+	public TreatmentHistory getPatientById(int pId);
 	
 	//public TreatmentHistory findByPatient(int pId);
 	
-	public List<Patient> findByTreatmentHistory_tId(int id);
+	//public List<Patient> findByTreatmentHistory_tId(int id);
 	
 	//public TreatmentHistory findByPId(int pId);
 

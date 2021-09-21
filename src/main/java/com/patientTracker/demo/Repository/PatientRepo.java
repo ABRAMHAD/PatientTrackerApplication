@@ -10,6 +10,6 @@ import com.patientTracker.demo.Entities.Patient;
 @Repository
 public interface PatientRepo extends JpaRepository<Patient, Integer> {
 
-	public List<Patient> findByTreatmentHistory_tId(int id);
+	//public List<Patient> findByTreatmentHistory_tId(int id);
 	
 }

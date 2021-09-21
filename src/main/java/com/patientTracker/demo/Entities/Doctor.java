@@ -36,9 +36,9 @@ public class Doctor {
 	@Pattern(regexp = "^[a-zA-Z0-9]+" +"[@#$%^&+=]*" + "(?=\\S+$).{8,20}$")
 	private String password;
 
-	@OneToMany
-	@JoinColumn(name = "tId")
-	private List<TreatmentHistory> treatmentHistory;
+//	@OneToMany
+//	@JoinColumn(name = "tId")
+//	private List<TreatmentHistory> treatmentHistory;
 
 	public Doctor() {
 		super();
@@ -95,13 +95,13 @@ public class Doctor {
 		this.password = password;
 	}
 
-	public List<TreatmentHistory> getTreatmentHistory() {
-		return treatmentHistory;
-	}
-
-	public void setTreatmentHistory(List<TreatmentHistory> treatmentHistory) {
-		this.treatmentHistory = treatmentHistory;
-	}
+//	public List<TreatmentHistory> getTreatmentHistory() {
+//		return treatmentHistory;
+//	}
+//
+//	public void setTreatmentHistory(List<TreatmentHistory> treatmentHistory) {
+//		this.treatmentHistory = treatmentHistory;
+//	}
 
 	@Override
 	public String toString() {

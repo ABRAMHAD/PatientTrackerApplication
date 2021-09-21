@@ -16,8 +16,10 @@ import com.patientTracker.demo.Controller.DoctorController;
 import com.patientTracker.demo.Entities.Doctor;
 import com.patientTracker.demo.Entities.Patient;
 import com.patientTracker.demo.Entities.TreatmentHistory;
+import com.patientTracker.demo.Exception.AdminNotFoundException;
 import com.patientTracker.demo.Exception.BadRequestException;
 import com.patientTracker.demo.Exception.PatientNotFoundException;
+import com.patientTracker.demo.Exception.TreatmentHistoryNotFoundException;
 import com.patientTracker.demo.Repository.DoctorRepo;
 import com.patientTracker.demo.Repository.PatientRepo;
 import com.patientTracker.demo.Repository.TreatmentHistoryRepository;
@@ -45,11 +47,11 @@ public class DoctorServiceImpl implements DoctorService {
 	PatientRepo patientRepo;
 
 	//Add treatment history
-	@Override
-	public TreatmentHistory addTreatmentHistory(TreatmentHistory treatmentHistory) {
-		treatmentHistoryRepo.save(treatmentHistory);
-		return treatmentHistory;
-	}
+//	@Override
+//	public TreatmentHistory addTreatmentHistory(TreatmentHistory treatmentHistory) {
+//		treatmentHistoryRepo.save(treatmentHistory);
+//		return treatmentHistory;
+//	}
 
 	//get treatment history
 	@Override
@@ -75,12 +77,25 @@ public class DoctorServiceImpl implements DoctorService {
 
 	}
 
-
-
 	@Override
-	public List<Patient> findByTreatmentHistory_tId(int id) {
-		return patientRepo.findByTreatmentHistory_tId(id);
+	public TreatmentHistory getPatientById(int pId) {
+		LOG.info("getTreatmentHistoryById");
+		Optional<TreatmentHistory> optTrt = treatmentHistoryRepo.findById(pId);
+		if(optTrt.isEmpty()) {
+			LOG.info("Treatment history not found");
+			throw new TreatmentHistoryNotFoundException();
+		}else
+			return optTrt.get();
 	}
+
+	
+
+
+
+//	@Override
+//	public List<Patient> findByTreatmentHistory_tId(int id) {
+//		return patientRepo.findByTreatmentHistory_tId(id);
+//	}
 
 	
 

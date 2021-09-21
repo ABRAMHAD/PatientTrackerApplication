@@ -40,13 +40,13 @@ public class TreatmentHistory {
 	@Pattern(regexp = "^[a-zA-Z]+$")
 	private String disease;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Patient_pId")
-	Patient patient;
+//	@ManyToOne()
+//	@JoinColumn(name = "Patient_pId")
+//	Patient patient;
 
-	@ManyToOne
-	@JoinColumn(name = "dId")
-	Doctor doctor;
+//	@ManyToOne
+//	@JoinColumn(name = "dId")
+//	Doctor doctor;
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "Patient_pId")
@@ -58,16 +58,15 @@ public class TreatmentHistory {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TreatmentHistory(int tId, String dateOfArrival, int treatmentCost, String consultation, String disease,
-			Patient patient, Doctor doctor) {
+	public TreatmentHistory(int tId, String dateOfArrival, int treatmentCost, String consultation, String disease) {
 		super();
 		this.tId = tId;
 		this.dateOfArrival = dateOfArrival;
 		this.treatmentCost = treatmentCost;
 		this.consultation = consultation;
 		this.disease = disease;
-		this.patient = patient;
-		this.doctor = doctor;
+//		this.patient = patient;
+//		this.doctor = doctor;
 	}
 
 	public int gettId() {
@@ -110,27 +109,12 @@ public class TreatmentHistory {
 		this.disease = disease;
 	}
 
-	public Patient getPatient() {
-		return patient;
-	}
-
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
-
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "TreatmentHistory [tId=" + tId + ", dateOfArrival=" + dateOfArrival + ", treatmentCost=" + treatmentCost
-				+ ", consultation=" + consultation + ", disease=" + disease + ", patient=" + patient + ", doctor="
-				+ doctor + "]";
+				+ ", consultation=" + consultation + ", disease=" + disease + "]";
 	}
 
 }
