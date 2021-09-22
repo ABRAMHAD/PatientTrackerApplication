@@ -40,19 +40,6 @@ public class TreatmentHistory {
 	@Pattern(regexp = "^[a-zA-Z]+$")
 	private String disease;
 
-//	@ManyToOne()
-//	@JoinColumn(name = "Patient_pId")
-//	Patient patient;
-
-//	@ManyToOne
-//	@JoinColumn(name = "dId")
-//	Doctor doctor;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "Patient_pId")
-//	private Patient patient;
-
-
 	public TreatmentHistory() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -65,8 +52,7 @@ public class TreatmentHistory {
 		this.treatmentCost = treatmentCost;
 		this.consultation = consultation;
 		this.disease = disease;
-//		this.patient = patient;
-//		this.doctor = doctor;
+
 	}
 
 	public int gettId() {
@@ -108,8 +94,6 @@ public class TreatmentHistory {
 	public void setDisease(String disease) {
 		this.disease = disease;
 	}
-
-	
 
 	@Override
 	public String toString() {

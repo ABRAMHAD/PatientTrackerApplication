@@ -4,7 +4,9 @@ package com.patientTracker.demo.Sevice;
 
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -57,6 +59,7 @@ public class AdminServiceTest {
 		boolean result = adminService.addDoctor(expected) != null;
 		assertTrue(result);
 	}
+	
 	@Test
 	void testToAddPatient() {
 		Patient expected = new Patient() ;
@@ -83,16 +86,16 @@ public class AdminServiceTest {
 	@Test
 	public void testFindDoctorById() throws Exception{
 		LOG.info("testDoctorById");
-		Doctor expected = new Doctor(2,"Ishwari","ishwari@gmail.com","ishwari@gmail.com","MBBS");
-		Doctor actual = adminService.getDoctorById(2);
+		Doctor expected = new Doctor(3,"Manasi","manasi@gmail.com","manasi@1999","BDS");
+		Doctor actual = adminService.getDoctorById(3);
 		assertEquals(expected.getdId(), actual.getdId());
 		
 	}
 	@Test
 	public void testFindDoctorByIdNotFound() throws Exception{
 		LOG.info("testNotDoctorById");
-		Doctor unexpected = new Doctor(2,"Ishwari","ishwari@gmail.com","ishwari@gmail.com","MBBS");
-		Doctor actual = adminService.getDoctorById(3);
+		Doctor unexpected = new Doctor(3,"Manasi","manasi@gmail.com","manasi@1999","BDS");
+		Doctor actual = adminService.getDoctorById(9);
 		assertNotEquals(unexpected.getdId(), actual.getdId());
 		
 	}
@@ -106,6 +109,8 @@ public class AdminServiceTest {
 		assertEquals(expected.getpId(), actual.getpId());
 		
 	}
+	
+
 	
 //	@Test
 //	void testToDeleteDoctor() {

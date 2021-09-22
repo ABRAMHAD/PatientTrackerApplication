@@ -27,49 +27,49 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	//Home Page for Home 
+	// Home Page for Home
 	@GetMapping("/Home")
 	public String home() {
 		return "Welcome to Patient Tracker System";
 	}
-	
-	//Get the Admin
+
+	// Get the Admin
 	@GetMapping("/getAdmin")
 	public ResponseEntity<List<Admin>> getAdmin() {
 		LOG.info("getAdmin");
 		List<Admin> adminList = adminService.getAdmin();
-		return new ResponseEntity<>(adminList,HttpStatus.OK);
+		return new ResponseEntity<>(adminList, HttpStatus.OK);
 	}
-	
-	//Add the admin
+
+	// Add the admin
 	@PostMapping("/addAdmin")
 	public Admin addAdmin(@RequestBody Admin admin) {
 		LOG.info("addAdmin");
 		return this.adminService.addAdmin(admin);
 	}
-	
-	//Admin Login
+
+	// Admin Login
 	@PostMapping(path = "login")
 	public String login(@RequestBody Admin admin) {
 		LOG.info("Login");
 		return this.adminService.loginAdmin(admin);
 	}
-	
-	//Add Doctor
+
+	// Add Doctor
 	@PostMapping(path = "/addDoctor")
 	public Doctor addDoctor(@RequestBody Doctor doctor) {
 		LOG.info("addDoctor");
 		return this.adminService.addDoctor(doctor);
 	}
-	
-	//Get Doctor
+
+	// Get Doctor
 	@GetMapping("/getDoctor")
 	public List<Doctor> getDoctor() {
 		LOG.info("getDoctor");
 		return this.adminService.getDoctor();
 	}
-	
-	//get doctor by Id
+
+	// get doctor by Id
 	@GetMapping("/searchDoctorById/{dId}")
 	public ResponseEntity<Doctor> getDocById(@PathVariable int dId) {
 		LOG.info("getDoctorById");
@@ -77,14 +77,14 @@ public class AdminController {
 		return new ResponseEntity<Doctor>(doc, HttpStatus.OK);
 	}
 
-	//Delete doctor by Id
+	// Delete doctor by Id
 	@DeleteMapping("/deleteDoctor/{dId}")
 	public int deleteDoctor(@PathVariable int dId) {
 		LOG.info("deleteDoctor");
 		return this.adminService.deleteDoctor(dId);
 	}
 
-	//Update doctor by Id
+	// Update doctor by Id
 	@PutMapping(path = "/updateDoctor/{doctorId}")
 	public Doctor updateDoctor(@RequestBody Doctor doctor) {
 		LOG.info("updateDoctor");
@@ -98,22 +98,22 @@ public class AdminController {
 		return this.adminService.addPatient(patient);
 	}
 
-	//Get patient
+	// Get patient
 	@GetMapping(path = "/getPatient")
 	public List<Patient> getPatient() {
 		LOG.info("getPatient");
 		return this.adminService.getPatient();
 	}
 
-	//get patient by Id
+	// get patient by Id
 	@GetMapping("/searchPatientById/{pId}")
 	public ResponseEntity<Patient> getPatientById(@PathVariable int pId) {
 		LOG.info("getPatientById");
 		Patient pat = adminService.getPatientById(pId);
 		return new ResponseEntity<Patient>(pat, HttpStatus.OK);
 	}
-	
-	//update patient by Id
+
+	// update patient by Id
 	@PutMapping(path = "/updatePatient/{Patient_Id}")
 	public Patient updatePatient(@RequestBody Patient patient) {
 		return this.adminService.updatePatient(patient);

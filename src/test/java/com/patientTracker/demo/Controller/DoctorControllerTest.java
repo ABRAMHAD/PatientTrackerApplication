@@ -34,5 +34,28 @@ public class DoctorControllerTest {
 		assertEquals(expected, actual.getStatusCode());
 	}
 	
+	@Test
+	public void addPatientTest() throws Exception{
+		LOG.info("testAddPatient");
+		
+		Patient patient = new Patient(2,"Nashik","25413655",22,"Female","Nayan");
+		
+		
+		
+		Patient patient2 = adminController.addPatient(patient);
+	    assertEquals(patient.getpName(), patient2.getpName());
+	}
+	
+	@Test
+	public void addDoctorTest() throws Exception{
+		LOG.info("testAddDoctor");
+		
+		Doctor doctor = new Doctor(3,"Manasi","BDS","manasi@gmail.com","manasi@1999");
+		
+		//Patient patient2 = adminController.addPatient(patient);
+		Doctor doctor2 = adminController.addDoctor(doctor);
+	    assertEquals(doctor.getdName(),doctor2.getdName());
+	}
+	
 
 }

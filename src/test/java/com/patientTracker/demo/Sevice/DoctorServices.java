@@ -24,16 +24,16 @@ public class DoctorServices {
 	@Test
 	public void testFindDoctorById() throws Exception{
 		LOG.info("testDoctorById");
-		Doctor expected = new Doctor(2,"Ishwari","ishwari@gmail.com","ishwari@gmail.com","MBBS");
-		Doctor actual = adminService.getDoctorById(2);
+		Doctor expected = new Doctor(3,"Manasi","manasi@gmail.com","manasi@1999","BDS");
+		Doctor actual = adminService.getDoctorById(3);
 		assertEquals(expected.getdId(), actual.getdId());
 		
 	}
 	@Test
 	public void testFindDoctorByIdNotFound() throws Exception{
 		LOG.info("testNotDoctorById");
-		Doctor unexpected = new Doctor(2,"Ishwari","ishwari@gmail.com","ishwari@gmail.com","MBBS");
-		Doctor actual = adminService.getDoctorById(3);
+		Doctor unexpected = new Doctor(3,"Manasi","manasi@gmail.com","manasi@1999","BDS");
+		Doctor actual = adminService.getDoctorById(9);
 		assertNotEquals(unexpected.getdId(), actual.getdId());
 		
 	}

@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
-//@Component("admin")
-//@Scope(scopeName = "prototype")
 @Entity
 @Table(name = "ADMIN_TABLE")
 public class Admin {
@@ -23,7 +21,7 @@ public class Admin {
 	private String userName;//
 
 	@Column(name = "PASSWORD", length = 20, nullable = false)
-	@Pattern(regexp = "^[a-zA-Z0-9]+" +"[@#$%^&+=]*" +"(?=\\S+$).{8,20}$")
+	@Pattern(regexp = "^[a-zA-Z0-9]+" + "[@#$%^&+=]*" + "(?=\\S+$).{8,20}$")
 	private String password;
 
 	public Admin() {

@@ -18,18 +18,6 @@ import com.patientTracker.demo.Entities.TreatmentHistory;
  *
  */
 @Repository
-public interface TreatmentHistoryRepository extends JpaRepository<TreatmentHistory, Integer >{
-	
-	
-	
-	
-	//public abstract int findById(Patient pId);
-	// public boolean TreatmentHistory findByPId(int pId);
-	 
-//	@Query(name = "select t from TreatmentHistory t where t.pid = :pid")
-//	 public abstract TreatmentHistory findByPatient(int pId);
-//	
-	
-	
-		
+public interface TreatmentHistoryRepository extends JpaRepository<TreatmentHistory, Integer> {
+
 }

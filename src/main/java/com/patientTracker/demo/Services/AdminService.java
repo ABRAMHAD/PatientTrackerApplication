@@ -36,6 +36,4 @@ public interface AdminService {
 
 	public Patient getPatientById(int pId);
 
-	// public void deletePatient(long parseLong);
-
 }

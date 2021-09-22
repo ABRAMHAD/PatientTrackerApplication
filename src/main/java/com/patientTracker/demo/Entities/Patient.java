@@ -27,15 +27,14 @@ import org.springframework.stereotype.Component;
  * @author user
  *
  */
-//@Component("admin")
-//@Scope(scopeName = "prototype")
+
 @Entity
 @Table(name = "PATIENT_TABLE")
 public class Patient {
 
 	@Id
 	@Column(name = "P_ID")
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pId;
 
 	@Column(name = "P_NAME", length = 20, nullable = false)
@@ -48,26 +47,21 @@ public class Patient {
 	private int age;
 
 	@Column(name = "P_CONTACT", length = 20, nullable = false)
-	private String contact;//long datatype
+	private String contact;// long datatype
 
 	@Column(name = "P_ADDRESS")
 	private String address;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name = "Patient_Treatment",joinColumns = {@JoinColumn(name="P_ID")},inverseJoinColumns = {@JoinColumn(name="TREATMENT_ID")})
-	private Set<TreatmentHistory> treatmentHistory= new HashSet<>();
-	
-
-//	@OneToMany(cascade=ALL, mappedBy="Patient")
-//	private List<TreatmentHistory> treatmentHistory;
-
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Patient_Treatment", joinColumns = { @JoinColumn(name = "P_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "TREATMENT_ID") })
+	private Set<TreatmentHistory> treatmentHistory = new HashSet<>();
 
 	public Patient() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	
 	public Patient(int pId, String pName, String gender, int age, String contact, String address) {
 		super();
 		this.pId = pId;
@@ -76,7 +70,7 @@ public class Patient {
 		this.age = age;
 		this.contact = contact;
 		this.address = address;
-		
+
 	}
 
 	public int getpId() {
@@ -127,48 +121,18 @@ public class Patient {
 		this.address = address;
 	}
 
-	
 	public Set<TreatmentHistory> getTreatmentHistory() {
 		return treatmentHistory;
 	}
 
-
 	public void setTreatmentHistory(Set<TreatmentHistory> treatmentHistory) {
 		this.treatmentHistory = treatmentHistory;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Patient [pId=" + pId + ", pName=" + pName + ", gender=" + gender + ", age=" + age + ", contact="
 				+ contact + ", address=" + address + "]";
 	}
-
-	// gender, contact,age,address,id,name
-
-//	@OneToMany
-//	@JoinColumn(name = "Doctor")
-//	private Doctor doctor;
-//private List<TreatmentHistory> treatmentHistory;
-	// class patient{
-	// @OneToMany
-//		@JoinColumn(name = "treatmentId")
-	// private List<TreatmentHistory> treatmentHistory;
-	// }
-	// class TreatmentHistory{
-	// @ManytoOne
-//		@JoinColumn(name = "patientId")
-	// Patient patient;
-
-	// @ManytoOne
-//		@JoinColumn(name = "doctorId")
-	// Doctor doctor;
-	// }
-
-	// class Doctor{
-	// @OneToMany
-//		@JoinColumn(name = "treatmentId")
-	// private List<TreatmentHistory> treatmentHistory;
-	// }
 
 }

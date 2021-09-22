@@ -33,7 +33,7 @@ public class Doctor {
 	private String doctorEmail;
 
 	@Column(name = "PASSWORD", length = 20, nullable = false)
-	@Pattern(regexp = "^[a-zA-Z0-9]+" +"[@#$%^&+=]*" + "(?=\\S+$).{8,20}$")
+	@Pattern(regexp = "^[a-zA-Z0-9]+" + "[@#$%^&+=]*" + "(?=\\S+$).{8,20}$")
 	private String password;
 
 //	@OneToMany
@@ -51,14 +51,14 @@ public class Doctor {
 		this.specialization = specialization;
 		this.doctorEmail = doctorEmail;
 		this.password = password;
-	
+
 	}
 
 	public int getdId() {
 		return dId;
 	}
 
-	//doctor
+	// doctor
 	public void setdId(int dId) {
 		this.dId = dId;
 	}
@@ -94,14 +94,6 @@ public class Doctor {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-//	public List<TreatmentHistory> getTreatmentHistory() {
-//		return treatmentHistory;
-//	}
-//
-//	public void setTreatmentHistory(List<TreatmentHistory> treatmentHistory) {
-//		this.treatmentHistory = treatmentHistory;
-//	}
 
 	@Override
 	public String toString() {
