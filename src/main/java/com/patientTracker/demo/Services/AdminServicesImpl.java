@@ -1,8 +1,10 @@
 package com.patientTracker.demo.Services;
 
 import java.util.List;
-import java.util.Optional;
 
+
+
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.patientTracker.demo.Controller.AdminController;
 import com.patientTracker.demo.Entities.Admin;
 import com.patientTracker.demo.Entities.Doctor;
 import com.patientTracker.demo.Entities.Patient;
+import com.patientTracker.demo.Exception.AdminExistsException;
 import com.patientTracker.demo.Exception.AdminNotFoundException;
 import com.patientTracker.demo.Exception.BadRequestException;
 import com.patientTracker.demo.Exception.DoctorNotFoundException;
@@ -42,24 +45,34 @@ public class AdminServicesImpl implements AdminService {
 	
 	//Add admin
 	@Override
-	public Admin addAdmin(Admin admin) {
-		adminRepo.save(admin);
-		return admin;
-	}
-
-	//Get admin
-	@Override
-	public List<Admin> getAdmin() {
-		LOG.info("getAdmin");
-		List<Admin> adminList = adminRepo.findAll();
-		if (adminList.size() == 0) {
-			LOG.error("No admin has added yet");
-			throw new AdminNotFoundException();
-		} else
-			return adminList;
+	public Admin addAdmin(Admin admin) throws AdminExistsException {
+		
+		if(adminRepo.existsById(admin.getAdminId())) {
+			throw new AdminExistsException("Admin Id exists already");
+		}
+		else {
+			Admin adminObj = adminRepo.save(admin);
+			return adminObj;
+		}
 	}
 	
-	//Login Admin
+	//Get admin
+	@Override
+	public List<Admin> getAdmin() throws AdminNotFoundException {
+		LOG.info("getAdmin");
+		List<Admin> adminList = adminRepo.findAll();
+		if(!adminList.isEmpty())
+		{
+			return adminList;
+		}else
+		{
+			LOG.error("Admin Not Found Exception thrown");
+			throw new AdminNotFoundException("Admin List does not exist.");
+		}
+			
+	}
+	
+	//Login admin
 	@Override
 	public String loginAdmin(Admin admin) {
 		LOG.info("login Admin");
@@ -70,7 +83,7 @@ public class AdminServicesImpl implements AdminService {
 			LOG.info(admin.toString());
 			LOG.info(admin2.toString());
 			return "Login Succesful";
-		} else {
+		}else {
 			throw new BadRequestException("Invalid user name or password.");
 		}
 
@@ -78,16 +91,25 @@ public class AdminServicesImpl implements AdminService {
 
 	//Add Doctor
 	@Override
-	public Doctor addDoctor(Doctor doctor) {
+	public Doctor addDoctor(Doctor doctor) throws DoctorNotFoundException {
+		
 		LOG.info("addDoctor");
-		try {
-			return doctorRepo.save(doctor);
-		}catch(IllegalArgumentException iae) {
-			LOG.error(iae.getMessage());
-			return null;
+		
+		
+		if(!doctorRepo.existsById(doctor.getdId()))
+		{
+			Doctor doctorAdd = doctorRepo.save(doctor);
+			return doctorAdd;	
 		}
-
+		else
+		{
+			LOG.error("Doctor Not Found Exception thrown");
+			throw new DoctorNotFoundException("Doctor cannot be added as id "+ doctor.getdId() + " already exist in Database.");
+		}
+		
 	}
+	
+	
 	
 	//Get Doctor
 	@Override
@@ -96,18 +118,44 @@ public class AdminServicesImpl implements AdminService {
 		Optional<Doctor> optDoc= doctorRepo.findById(dId);
 		if(optDoc.isEmpty()) {
 			LOG.error("Doctor not found");
-			throw new DoctorNotFoundException();
+			throw new DoctorNotFoundException("Doctor with "+dId+" does not exist.");
 		}else
 			return optDoc.get();
 	}
 	
 	//Update doctor
 	@Override
-	public Doctor updateDoctor(Doctor doctor) {
+	public Doctor updateDoctor(Doctor doctor) throws DoctorNotFoundException {
 		LOG.info("updateDoctor");
-		doctorRepo.save(doctor);
-		return doctor;
+		if(doctorRepo.existsById(doctor.getdId()))
+		{
+			Doctor doctorUpdate = doctorRepo.save(doctor);
+			return doctorUpdate;
+		}
+		else
+		{
+			LOG.error("Doctor Not Found Exception thrown");
+			throw new DoctorNotFoundException("Doctor with Id "+doctor.getdId()+ " cannot be updated as it does not exist in DB");
+		}
 	}
+	
+	/*
+	 * @Override
+	public Movie updateMovie(Movie movie) throws MovieNotFoundException {
+		logger.debug("updateMovie method is accessed in MovieService");
+		
+		if(repository.existsById(movie.getMovieId()))
+		{
+			Movie movieUpdate = repository.save(movie);
+			return movieUpdate;
+		}
+		else
+		{
+			logger.error("Movie Not Found Exception thrown");
+			throw new MovieNotFoundException("Movie with Id "+movie.getMovieId()+ " cannot be updated as it does not exist in DB");
+		}
+	}
+	 */
 
 	//Delete doctor
 	@Override
@@ -128,15 +176,19 @@ public class AdminServicesImpl implements AdminService {
 
 	//Add patient
 	@Override
-	public Patient addPatient(Patient patient) {
+	public Patient addPatient(Patient patient) throws PatientNotFoundException {
 		LOG.info("addPatient");
-		try {
-			return patientRepo.save(patient);
-		}catch(IllegalArgumentException iae) {
-			LOG.error(iae.getMessage());
-			return null;
+		if(!patientRepo.existsById(patient.getpId()))
+		{
+			Patient patientAdd = patientRepo.save(patient);
+			return patientAdd;	
+		}else
+		{
+			LOG.error("Patient Not Found Exception thrown");
+			throw new PatientNotFoundException("Patient cannot be added as id "+patient.getpId()+ " already exist in Database.");
 		}
 	}
+	
 	
 	//Get patient by Id
 	@Override
@@ -145,7 +197,7 @@ public class AdminServicesImpl implements AdminService {
 		Optional<Patient> optPat= patientRepo.findById(pId);
 		if(optPat.isEmpty()) {
 			LOG.error("Patient not found");
-			throw new PatientNotFoundException();
+			throw new PatientNotFoundException("hi");
 		}else
 			return optPat.get();
 	}

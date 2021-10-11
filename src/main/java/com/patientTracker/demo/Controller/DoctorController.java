@@ -5,11 +5,14 @@ package com.patientTracker.demo.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patientTracker.demo.Entities.Doctor;
 import com.patientTracker.demo.Entities.Patient;
 import com.patientTracker.demo.Entities.TreatmentHistory;
+import com.patientTracker.demo.Exception.PatientNotFoundException;
 import com.patientTracker.demo.Repository.TreatmentHistoryRepository;
 import com.patientTracker.demo.Services.AdminService;
 import com.patientTracker.demo.Services.DoctorService;
@@ -30,6 +34,8 @@ import com.patientTracker.demo.Services.DoctorService;
  * @author user
  *
  */
+@CrossOrigin(origins ="http://localhost:3000")
+
 @RestController
 @RequestMapping("/Doctor")
 public class DoctorController {
@@ -54,9 +60,18 @@ public class DoctorController {
 
 	// Add patient
 	@PostMapping("/addPatient")
-	public Patient addPatient(@RequestBody Patient patient) {
+	public ResponseEntity<Object> addPatient(@Valid @RequestBody Patient patient) {
 		LOG.info("addPatient");
-		return this.adminService.addPatient(patient);
+		Patient patientAdd = new Patient();
+		try {
+			patientAdd = adminService.addPatient(patient);
+			return new ResponseEntity<Object>(patientAdd, HttpStatus.CREATED);
+		} 
+		catch (PatientNotFoundException e) 
+		{
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 	// Get patient
@@ -67,7 +82,7 @@ public class DoctorController {
 	}
 
 	// Get patient by Id
-	@GetMapping("/searchPatientById/{pId}")
+	@GetMapping("/getPatientById/{pId}")
 	public ResponseEntity<Patient> getPatientById(@PathVariable int pId) {
 		LOG.info("getPatientById");
 		Patient pat = adminService.getPatientById(pId);
@@ -87,7 +102,7 @@ public class DoctorController {
 	}
 
 	// Get TreatmentHistory
-	@GetMapping("/viewTreatmentHistory")
+	@GetMapping("/getTreatmentHistory")
 	public List<TreatmentHistory> getTreatmentHistory() {
 		// return this.doctorService.getTreatmentHistory();
 		LOG.info("ViewTreatmentHistory");
@@ -95,7 +110,7 @@ public class DoctorController {
 	}
 
 	// Get Patient History
-	@GetMapping(path = "/search_History/{pId}")
+	@GetMapping(path = "/getHistory/{pId}")
 	public ResponseEntity<TreatmentHistory> getTreatmentHistoryById(@PathVariable int pId) {
 		LOG.info("getTreatmentHistoryById");
 		TreatmentHistory trt = doctorService.getPatientById(pId);

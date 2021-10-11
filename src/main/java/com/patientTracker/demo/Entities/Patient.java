@@ -34,7 +34,7 @@ public class Patient {
 
 	@Id
 	@Column(name = "P_ID")
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pId;
 
 	@Column(name = "P_NAME", length = 20, nullable = false)

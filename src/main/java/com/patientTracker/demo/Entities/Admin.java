@@ -17,7 +17,7 @@ public class Admin {
 	private long adminId;
 
 	@Column(name = "ADMIN_NAME", length = 20, nullable = false, unique = true)
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Please Enter Valid Name")
+//	@Pattern(regexp = "^[a-zA-Z]+$", message = "Please Enter Valid Name")
 	private String userName;//
 
 	@Column(name = "PASSWORD", length = 20, nullable = false)
